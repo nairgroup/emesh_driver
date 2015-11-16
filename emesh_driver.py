@@ -15,7 +15,7 @@ sht1x_datapin = 11
 sht1x_clkpin = 7
 
 windspd_pin = 23
-winddir_pin = 0 #This is an analog signal and needs to be run thorugh an A->D converter
+#winddir_pin = 0 #This is an analog signal and needs to be run thorugh an A->D converter
 
 
 #Variable initialization
