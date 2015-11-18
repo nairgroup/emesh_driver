@@ -32,7 +32,7 @@ def windspd_detection():
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 
 #Creating object for sht1x themperature sensor
-sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BOARD)
+sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
 
 #Creating file header
 lun = open(savefile, 'w')
