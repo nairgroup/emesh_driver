@@ -2,7 +2,7 @@
 import time
 import Adafruit_BMP.BMP085 as BMP085 #For use with the BMP185 pressure sensor
 import RPi.GPIO as GPIO #For use with GPIO pins
-import sht1x.Sht1x as SHT1x #For use with the SHT1x series of temperature sensors
+from sht1x.Sht1x import Sht1x as SHT1x #For use with the SHT1x series of temperature sensors
 #from AM2315 import AM2315 #For use with am2315 temperature sensor
 
 #Setting GPIO mode
