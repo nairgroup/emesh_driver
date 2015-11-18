@@ -44,10 +44,10 @@ while (1):
 	
 	
 	#Reading from the SHT1x
-	sht1x=SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
+	#sht1x=SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
 	
-	sht1x_temp = sht1x.read_temperature_C()
-	sht1x_rh = sht1x.read_humidity()
+	#sht1x_temp = sht1x.read_temperature_C()
+	#sht1x_rh = sht1x.read_humidity()
 	
 	#Write to the data file
 	lun = open(savefile, 'w')
