@@ -1,4 +1,5 @@
 #Library imports
+import time
 import Adafruit_BMP.BMP085 as BMP085 #For use with the BMP185 pressure sensor
 import RPi.GPIO as GPIO #For use with GPIO pins
 import sht1x.Sht1x as SHT1x #For use with the SHT1x series of temperature sensors
@@ -31,7 +32,7 @@ def windspd_detection():
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 #-----------------BEGIN MAIN LOOP------------------------
 while (1):
-	
+	time.sleep(5) #5 second delay in the loop
 	#Reading from the BMP sensor
 	bmp = BMP085.BMP085()
 	bmp_temp = bmp.read_temperature()
