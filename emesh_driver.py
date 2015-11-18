@@ -25,7 +25,7 @@ windspd_count = 0
 GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def windspd_detection():
-	windspd_count ++
+	windspd_count = windspd_count + 1
 	
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 #-----------------BEGIN MAIN LOOP------------------------
