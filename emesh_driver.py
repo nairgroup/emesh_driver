@@ -24,7 +24,7 @@ windspd_count = 0
 #Defining interrupts for wind measurements
 GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-def windspd_detection(channel)
+def windspd_detection():
 	windspd_count ++
 	
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
