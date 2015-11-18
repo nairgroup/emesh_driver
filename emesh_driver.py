@@ -30,6 +30,14 @@ def windspd_detection():
 	return
 	
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
+
+#Creating file header
+lun = open(savefile, 'w')
+lun.write("Header")
+lun.write("\n")
+lun.close()
+
+
 #-----------------BEGIN MAIN LOOP------------------------
 while (1):
 	time.sleep(5) #5 second delay in the loop
@@ -51,8 +59,9 @@ while (1):
 	#sht1x_rh = sht1x.read_humidity()
 	
 	#Write to the data file
-	lun = open(savefile, 'w')
+	lun = open(savefile, 'a')
 	lun.write("I made a file!")
+	lun.write("\n")
 	lun.close()
 	
 #----------------------END MAIN LOOP------------------------
