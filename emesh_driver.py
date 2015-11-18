@@ -29,28 +29,28 @@ def windspd_detection(channel)
 	
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 #-----------------BEGIN MAIN LOOP------------------------
-
+while (1):
 	
-#Reading from the BMP sensor
-bmp = BMP085.BMP085()
-bmp_temp = bmp.read_temperature()
-bmp_pres = bmp.read_pressure()
-
-print "bmp temp is: ", bmp_temp
-print "bmp pres is: ", bmp_pres
-
-#Reading from the AM2315
-
-
-#Reading from the SHT1x
-sht1x=SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
-
-sht1x_temp = sht1x.read_temperature_C()
-sht1x_rh = sht1x.read_humidity()
-
-#Write to the data file
-lun = open(savefile, 'w')
-lun.write("I made a file!")
-lun.close()
-
+	#Reading from the BMP sensor
+	bmp = BMP085.BMP085()
+	bmp_temp = bmp.read_temperature()
+	bmp_pres = bmp.read_pressure()
+	
+	print "bmp temp is: ", bmp_temp
+	print "bmp pres is: ", bmp_pres
+	
+	#Reading from the AM2315
+	
+	
+	#Reading from the SHT1x
+	sht1x=SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
+	
+	sht1x_temp = sht1x.read_temperature_C()
+	sht1x_rh = sht1x.read_humidity()
+	
+	#Write to the data file
+	lun = open(savefile, 'w')
+	lun.write("I made a file!")
+	lun.close()
+	
 #----------------------END MAIN LOOP------------------------
