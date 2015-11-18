@@ -12,8 +12,8 @@ GPIO.setmode(GPIO.BCM)
 savefile = "metobs.txt"
 
 #Setting pins to be used with each instrument
-sht1x_datapin = 11
-sht1x_clkpin = 7
+sht1x_datapin = 11 #GPIO number
+sht1x_clkpin = 7 #GPIO number
 
 windspd_pin = 23
 #winddir_pin = 0 #This is an analog signal and needs to be run thorugh an A->D converter
@@ -30,6 +30,9 @@ def windspd_detection():
 	return
 	
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
+
+#Creating object for sht1x themperature sensor
+sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BOARD)
 
 #Creating file header
 lun = open(savefile, 'w')
