@@ -12,8 +12,8 @@ GPIO.setmode(GPIO.BCM)
 savefile = "metobs.txt"
 
 #Setting pins to be used with each instrument
-sht1x_datapin = 11 #GPIO number
-sht1x_clkpin = 7 #GPIO number
+sht1x_datapin = 2 #GPIO number
+sht1x_clkpin = 3 #GPIO number
 
 windspd_pin = 23
 #winddir_pin = 0 #This is an analog signal and needs to be run thorugh an A->D converter
