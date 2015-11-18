@@ -6,7 +6,7 @@ from sht1x.Sht1x import Sht1x as SHT1x #For use with the SHT1x series of tempera
 #from AM2315 import AM2315 #For use with am2315 temperature sensor
 
 #Setting GPIO mode
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 #Defining save file name
 savefile = "metobs.txt"
@@ -32,7 +32,7 @@ def windspd_detection():
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 
 #Creating object for sht1x themperature sensor
-sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
+sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BOARD)
 
 #Creating file header
 lun = open(savefile, 'w')
@@ -56,8 +56,6 @@ while (1):
 	
 	
 	#Reading from the SHT1x
-	#sht1x=SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
-	
 	sht1x_temp = sht1x.read_temperature_C()
 	sht1x_rh = sht1x.read_humidity()
 	
