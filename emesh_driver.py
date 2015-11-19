@@ -20,6 +20,7 @@ rain_pin = 25 #GPIO number
 
 
 #Defining interrupt function for the rain bucket
+rain_count = 0
 def rain_detect():
 	rain_count = rain_count + 1
 	return
