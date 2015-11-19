@@ -16,7 +16,7 @@ dt = 5 #seconds
 #Declaring counter variables to be global
 #These are used for wind and rain
 global rain_count
-global windspd_count
+#global windspd_count
 
 #Variable initialization
 rain_count = 0
@@ -29,6 +29,7 @@ rain_pin = 25 #GPIO number
 
 #Defining interrupt function for the rain bucket
 def rain_detect(channel):
+	global rain_count
 	rain_count = rain_count + 1
 	return
 GPIO.setup(rain_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -41,7 +42,7 @@ GPIO.add_event_detect(rain_pin, GPIO.FALLING, callback=rain_detect, bouncetime=5
 #GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #def windspd_detection():
-#	windspd_count = windspd_count + 1
+#	global windspd_count = windspd_count + 1
 #	return
 
 #GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
