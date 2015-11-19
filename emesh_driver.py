@@ -81,6 +81,8 @@ while (1):
 	print "rain count is: ", rain_count
 	print "rain rate is: ", rain_rate
 	
+	rain_count = 0
+	
 	#Write to the data file
 	lun = open(savefile, 'a')
 	lun.write("I made a file!")
