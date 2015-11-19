@@ -73,6 +73,7 @@ while (1):
 	#Determining rain rate
 	rain_rate = (rain_count*0.2/dt)*3600 #rain rate in mm/hr
 	
+	print "rain count is: ", rain_count
 	print "rain rate is: ", rain_rate
 	
 	#Write to the data file
