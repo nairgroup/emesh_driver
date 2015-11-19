@@ -13,14 +13,21 @@ savefile = "metobs.txt"
 #Defining time for loop delay
 dt = 5 #seconds
 
+#Declaring counter variables to be global
+#These are used for wind and rain
+global rain_count
+global windspd_count
+
+#Variable initialization
+rain_count = 0
+#windspd_count = 0
+
 #Setting pins to be used with each instrument
 sht1x_datapin = 11 #GPIO number
 sht1x_clkpin = 7 #GPIO number
 rain_pin = 25 #GPIO number
 
-
 #Defining interrupt function for the rain bucket
-rain_count = 0
 def rain_detect(channel):
 	rain_count = rain_count + 1
 	return
@@ -29,9 +36,6 @@ GPIO.add_event_detect(rain_pin, GPIO.FALLING, callback=rain_detect, bouncetime=5
 
 #windspd_pin = 23
 #winddir_pin = 0 #This is an analog signal and needs to be run thorugh an A->D converter
-
-#Variable initialization
-#windspd_count = 0
 
 #Defining interrupts for wind measurements
 #GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
