@@ -10,7 +10,6 @@ Model 380/382 12" tipping rain gauge
 Future implementations:
 Particulate sensor
 Davis anemometer
-File writing
 
 Sensor libraries used:
 BMP sensor -- https://github.com/adafruit/Adafruit_Python_BMP
