@@ -16,16 +16,19 @@ dt = 5 #seconds
 #Declaring counter variables to be global
 #These are used for wind and rain
 global rain_count
-#global windspd_count
+global windspd_count
+global wind_dir
 
 #Variable initialization
 rain_count = 0
-#windspd_count = 0
+windspd_count = 0
 
 #Setting pins to be used with each instrument
 sht1x_datapin = 11 #GPIO number
 sht1x_clkpin = 7 #GPIO number
 rain_pin = 25 #GPIO number
+windspd_pin = 23 #GPIO number
+winddir_pin = 24 #GPIO number
 
 #Defining interrupt function for the rain bucket
 def rain_detect(channel):
@@ -35,15 +38,15 @@ def rain_detect(channel):
 GPIO.setup(rain_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(rain_pin, GPIO.FALLING, callback=rain_detect, bouncetime=500)
 
-#windspd_pin = 23
-#winddir_pin = 0 #This is an analog signal and needs to be run thorugh an A->D converter
-
 #Defining interrupts for wind measurements
-#GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+def wind_detect(channel):
+	global windspd_count
+	windspd_count = windspd_count + 1
+	return
 
-#def windspd_detection():
-#	global windspd_count = windspd_count + 1
-#	return
+GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(winddir_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=wind_detect, bouncetime=10)
 
 #GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 
