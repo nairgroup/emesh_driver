@@ -58,55 +58,65 @@ lun.close()
 
 
 #-----------------BEGIN MAIN LOOP------------------------
-while (1):
-	time.sleep(dt)
+try:
+
+	while (1):
+		time.sleep(dt)
 	
-	#Time of sensor read start
-	year1 = time.strftime("%Y")
-	day1 = time.strftime("%j")
-	h1 = time.strftime("%H")
-	m1 = time.strftime("%M")
-	s1 = time.strftime("%S")
+		#Time of sensor read start
+		year1 = time.strftime("%Y")
+		day1 = time.strftime("%j")
+		h1 = time.strftime("%H")
+		m1 = time.strftime("%M")
+		s1 = time.strftime("%S")
 	
-	#Reading from the BMP sensor
-	bmp = BMP085.BMP085()
-	bmp_temp = bmp.read_temperature()+273.15
-	bmp_pres = float(bmp.read_pressure())/100.0
+		#Reading from the BMP sensor
+		bmp = BMP085.BMP085()
+		bmp_temp = bmp.read_temperature()+273.15
+		bmp_pres = float(bmp.read_pressure())/100.0
 	
-	#print "bmp temp is: ", bmp_temp
-	#print "bmp pres is: ", bmp_pres
-	
-	#Reading from the SHT1x
-	sht1x_temp = sht1x.read_temperature_C()+273.15
-	sht1x_rh = sht1x.read_humidity()
-	
-	#print "sht1x temp is: ", sht1x_temp
-	#print "sht1x rh is: ", sht1x_rh
-	
-	#Determining Wind Speed and Wind Direction
-	wind_dir = float('NaN')
-	wind_spd = float('NaN')
-	
-	#Determining rain rate
-	rain_rate = (rain_count*0.2/dt)*3600 #rain rate in mm/hr
-	
-	#print "rain count is: ", rain_count
-	#print "rain rate is: ", rain_rate
-	rain_count = 0 #Reseting rain count for next measurement period
-	
-	
-	#Time of sensor read end
-	year2 = time.strftime("%Y")
-	day2 = time.strftime("%j")
-	h2 = time.strftime("%H")
-	m2 = time.strftime("%M")
-	s2 = time.strftime("%S")
-	
-	#Write to the data file
-	lun = open(savefile, 'a')
-	lun.write("%r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r" % 
-		(year1, day1, h1, m1, s1, sht1x_temp, bmp_temp, bmp_pres, sht1x_rh, wind_dir, wind_spd, rain_rate, year2, day2, h2, m2, s2))
-	lun.write("\n")
-	lun.close()
+		#print "bmp temp is: ", bmp_temp
+		#print "bmp pres is: ", bmp_pres
+		
+		#Reading from the SHT1x
+		sht1x_temp = sht1x.read_temperature_C()+273.15
+		sht1x_rh = sht1x.read_humidity()
+		
+		#print "sht1x temp is: ", sht1x_temp
+		#print "sht1x rh is: ", sht1x_rh
+		
+		#Determining Wind Speed and Wind Direction
+		wind_dir = float('NaN')
+		wind_spd = float('NaN')
+		
+		#Determining rain rate
+		rain_rate = (rain_count*0.2/dt)*3600 #rain rate in mm/hr
+		
+		#print "rain count is: ", rain_count
+		#print "rain rate is: ", rain_rate
+		rain_count = 0 #Reseting rain count for next measurement period
+		
+		
+		#Time of sensor read end
+		year2 = time.strftime("%Y")
+		day2 = time.strftime("%j")
+		h2 = time.strftime("%H")
+		m2 = time.strftime("%M")
+		s2 = time.strftime("%S")
+		
+		#Write to the data file
+		lun = open(savefile, 'a')
+		lun.write("%r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r" % 
+			(year1, day1, h1, m1, s1, sht1x_temp, bmp_temp, bmp_pres, sht1x_rh, wind_dir, wind_spd, rain_rate, year2, day2, h2, m2, s2))
+		lun.write("\n")
+		lun.close()
 	
 #----------------------END MAIN LOOP------------------------
+
+except: KeyboardInterrupt
+	print "Keyboard Interrupt, cleaning pins..."
+	
+except:
+	print "Unexpected Error"
+	
+finally: GPIO.cleanup() #Exiting code cleanly
