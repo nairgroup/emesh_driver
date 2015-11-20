@@ -52,11 +52,9 @@ sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
 
 #Creating file header
 lun = open(savefile, 'w')
-#lun.write("Year", "\t", "Julian Day", "Hour", "\t", "Minute", "\t", "Second", "\t", 
-#	"Temp1 (K)", "Temp2 (K)", "\t", "Pressure (hPa)", "\t", "RH (%)", "\t",
-#	"WindDir (V)", "\t", "WindSpd", "\t", "Rain Rate (mm/hr)", "\t",
-#	"Year", "\t", "Julian Day", "\t", "Hour", "\t", "Minute", "\t", "Second")
-#lun.write("\n")
+lun.write("Year \t Julian Day \t Hour \t Minute \t \Second \t Temp1 (K) \t Temp2 (K) \t Pressure (hPa) \t RH (%) \t
+	Wind Direction (V) \t Wind Speed (m/s) \t Rain Rate (mm/hr) \t Year \t Julian Day \t Hour \t Minute \t Second"
+lun.write("\n")
 lun.close()
 
 
@@ -73,14 +71,14 @@ while (1):
 	
 	#Reading from the BMP sensor
 	bmp = BMP085.BMP085()
-	bmp_temp = bmp.read_temperature()
-	bmp_pres = bmp.read_pressure()
+	bmp_temp = bmp.read_temperature()+273.15
+	bmp_pres = float(bmp.read_pressure())/100.0
 	
 	print "bmp temp is: ", bmp_temp
 	print "bmp pres is: ", bmp_pres
 	
 	#Reading from the SHT1x
-	sht1x_temp = sht1x.read_temperature_C()
+	sht1x_temp = sht1x.read_temperature_C()+273.15
 	sht1x_rh = sht1x.read_humidity()
 	
 	print "sht1x temp is: ", sht1x_temp
