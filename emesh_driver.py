@@ -52,8 +52,8 @@ sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
 
 #Creating file header
 lun = open(savefile, 'w')
-lun.write("Year \t Julian Day \t Hour \t Minute \t \Second \t Temp1 (K) \t Temp2 (K) \t Pressure (hPa) \t RH (%) \t
-	Wind Direction (V) \t Wind Speed (m/s) \t Rain Rate (mm/hr) \t Year \t Julian Day \t Hour \t Minute \t Second \n")
+lun.write("Year \t Julian Day \t Hour \t Minute \t \Second \t Temp1 (K) \t Temp2 (K) \t Pressure (hPa) \t RH (%) \t" \
+	"Wind Direction (V) \t Wind Speed (m/s) \t Rain Rate (mm/hr) \t Year \t Julian Day \t Hour \t Minute \t Second \n")
 lun.close()
 
 
