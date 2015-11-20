@@ -113,7 +113,7 @@ try:
 
 #----------------------END MAIN LOOP------------------------
 
-except: KeyboardInterrupt
+except KeyboardInterrupt:
 	print "Keyboard Interrupt, cleaning pins..."
 
 
