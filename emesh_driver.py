@@ -73,15 +73,15 @@ while (1):
 	bmp_temp = bmp.read_temperature()+273.15
 	bmp_pres = float(bmp.read_pressure())/100.0
 	
-	print "bmp temp is: ", bmp_temp
-	print "bmp pres is: ", bmp_pres
+	#print "bmp temp is: ", bmp_temp
+	#print "bmp pres is: ", bmp_pres
 	
 	#Reading from the SHT1x
 	sht1x_temp = sht1x.read_temperature_C()+273.15
 	sht1x_rh = sht1x.read_humidity()
 	
-	print "sht1x temp is: ", sht1x_temp
-	print "sht1x rh is: ", sht1x_rh
+	#print "sht1x temp is: ", sht1x_temp
+	#print "sht1x rh is: ", sht1x_rh
 	
 	#Determining Wind Speed and Wind Direction
 	wind_dir = float('NaN')
@@ -90,10 +90,9 @@ while (1):
 	#Determining rain rate
 	rain_rate = (rain_count*0.2/dt)*3600 #rain rate in mm/hr
 	
-	print "rain count is: ", rain_count
-	print "rain rate is: ", rain_rate
-	
-	rain_count = 0
+	#print "rain count is: ", rain_count
+	#print "rain rate is: ", rain_rate
+	rain_count = 0 #Reseting rain count for next measurement period
 	
 	
 	#Time of sensor read end
@@ -102,7 +101,6 @@ while (1):
 	h2 = time.strftime("%H")
 	m2 = time.strftime("%M")
 	s2 = time.strftime("%S")
-	
 	
 	#Write to the data file
 	lun = open(savefile, 'a')
