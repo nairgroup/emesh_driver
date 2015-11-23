@@ -41,9 +41,7 @@ GPIO.add_event_detect(rain_pin, GPIO.FALLING, callback=rain_detect, bouncetime=5
 
 GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(winddir_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=wind_detect, bouncetime=10)
 
-#GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detection)
 
 #Creating object for sht1x themperature sensor
 sht1x = SHT1x(sht1x_datapin, sht1x_clkpin, SHT1x.GPIO_BCM)
