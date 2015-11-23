@@ -11,7 +11,8 @@ GPIO.setmode(GPIO.BCM)
 savefile = "metobs.txt"
 
 #Defining time for loop delay
-dt = 5 #seconds
+#Winds are a 15s average, so temporal resolution is dt+15s
+dt = 15 #seconds
 
 #Declaring counter variables to be global
 #These are used for wind and rain
@@ -38,12 +39,6 @@ def rain_detect(channel):
 GPIO.setup(rain_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(rain_pin, GPIO.FALLING, callback=rain_detect, bouncetime=500)
 
-#Defining interrupts for wind measurements
-def wind_detect(channel):
-	global windspd_count
-	windspd_count = windspd_count + 1
-	return
-
 GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(winddir_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=wind_detect, bouncetime=10)
@@ -64,7 +59,28 @@ lun.close()
 try:
 
 	while (1):
-		time.sleep(dt)
+		
+		#Wind loop
+		#This loop should take 15s of the 30s total delay between obs
+		windspd_count = 0
+		wt1 = time.clock()
+		timeout = 5 #Time out in seconds, reccomend timeout = 15/3
+		while ((wt2-wt1)<15):
+			wt2 = time.clock()
+			GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
+			wts1 = time.clock()
+			GPIO.wait_for_edge(winddir_pin, GPIO.RISING, timeout)
+			wtd = time.clock()
+			err = GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
+			wts2 = time.clock
+			if x == 0:
+				windspd_count = windspd_count+1
+			else:
+				windspd_count = -999
+			
+			
+		if (windspd_count/15 > 0.010) or (windspd_count/15 < 3.229 
+			wind_spd = (windspd_count/15)
 	
 		#Time of sensor read start
 		year1 = time.strftime("%Y")
@@ -113,6 +129,9 @@ try:
 			(year1, day1, h1, m1, s1, sht1x_temp, bmp_temp, bmp_pres, sht1x_rh, wind_dir, wind_spd, rain_rate, year2, day2, h2, m2, s2))
 		lun.write("\n")
 		lun.close()
+		
+		time.sleep(dt)
+		
 
 #----------------------END MAIN LOOP------------------------
 
