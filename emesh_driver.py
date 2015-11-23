@@ -24,8 +24,8 @@ rain_count = 0
 windspd_count = 0
 
 #Setting pins to be used with each instrument
-sht1x_datapin = 11 #GPIO number
-sht1x_clkpin = 7 #GPIO number
+sht1x_datapin = 19 #GPIO number
+sht1x_clkpin = 26 #GPIO number
 rain_pin = 25 #GPIO number
 windspd_pin = 23 #GPIO number
 winddir_pin = 24 #GPIO number
