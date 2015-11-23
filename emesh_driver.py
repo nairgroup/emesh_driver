@@ -68,6 +68,7 @@ try:
 		timeout = 5 #Time out in seconds, reccomend timeout = 15/3
 		wtime = 15 #time to average wind measurements over in seconds
 		wt1 = time.clock()
+		wt2 = wt1+wtime+1 #Gurantees that loop runs at least once
 		while ((wt2-wt1)<wtime):
 			wt2 = time.clock()
 			GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
