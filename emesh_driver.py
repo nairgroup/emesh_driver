@@ -62,10 +62,15 @@ try:
 		
 		#Wind loop
 		#This loop should take 15s of the 30s total delay between obs
-		windspd_count = 0
-		wt1 = time.clock()
+		#Resetting variables used in wind loop
+		windspd_count = 0 #Revolutions of anemometer
+		dir_time = 0 #Relative timing for wind direction
+		i = 0 #loop counter
+		
 		timeout = 5 #Time out in seconds, reccomend timeout = 15/3
-		while ((wt2-wt1)<15):
+		wtime = 15 #time to average wind measurements over in seconds
+		wt1 = time.clock()
+		while ((wt2-wt1)<wtime):
 			wt2 = time.clock()
 			GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
 			wts1 = time.clock()
@@ -73,14 +78,29 @@ try:
 			wtd = time.clock()
 			err = GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
 			wts2 = time.clock
-			if x == 0:
+			if err == 0:
 				windspd_count = windspd_count+1
 			else:
 				windspd_count = -999
+			dir_time = (wtd-wts1)/(wts2-wts1)+dir_time
+			i += 1
 			
 			
-		if (windspd_count/15 > 0.010) or (windspd_count/15 < 3.229 
-			wind_spd = (windspd_count/15)
+		wind_dir = (dir_time/i) #Needs completion
+		wrps = windspd_count/wtime
+		if (wrps >= 0.010) and (wrps < 3.229 ):
+			wind_spd = (-0.1095*wrps**2 +2.9318*wrps-0.1412)*0.48037
+		elif (wrps >= 3.230) and (wrps < 54.362):
+			wind_spd = (0.0052*wrps**2+2.1980*wrps+1.1091)*0.48037
+		elif (wrps >= 54.362) and (wrps < 66.332):
+			wind_spd = (0.1104*wrps**2-9.5685*wrps+329.87)*0.48037
+		elif (wrps >= 66.332):
+			wind_spd = 999
+		elif (windspd_count == -999):
+			wind_spd = 0
+		else:
+			wind_spd = float('nan')
+			
 	
 		#Time of sensor read start
 		year1 = time.strftime("%Y")
