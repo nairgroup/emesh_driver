@@ -157,8 +157,8 @@ except KeyboardInterrupt:
 	print "Keyboard Interrupt, cleaning pins..."
 
 
-except:
-	print "Unexpected Error"
+#except:
+#	print "Unexpected Error"
 
 
 finally: GPIO.cleanup() #Exiting code cleanly
