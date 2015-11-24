@@ -20,9 +20,9 @@ global rain_count
 global windspd_count
 global anem #For determining whether first or second anemoter rotation in a cycle
 global vane #For determining whether wind vane has reutrned a signal in the current anenometer cycle
-global wst1 #anemometer first detection time
-global wst2 #anemomter second detection time
-global wdt #Wind vane detection time
+global wts1 #anemometer first detection time
+global wts2 #anemomter second detection time
+global wtd #Wind vane detection time
 
 #Variable initialization
 rain_count = 0
@@ -30,9 +30,9 @@ windspd_count = 0
 dir_time = float('nan') #Cannot initialize to zero because 0 corresponds to a direction
 a = 0
 v = 0
-wst1 = 0
-wst2 = 0
-wdt = 0
+wts1 = 0
+wts2 = 0
+wtd = 0
 
 #Setting pins to be used with each instrument
 sht1x_datapin = 19 #GPIO number
@@ -52,23 +52,26 @@ def windspd_detect(channel):
 	global windspd_count
 	global anem
 	global vane
-	global wst1
-	global wst2
+	global wts1
+	global wts2
 	windspd_count +=1
 	if anem and vane:
-		wst2 = time.time()
+		wts2 = time.time()
 		anem = 0
 		vane = 0
 	else:
 		anem = 1
-		wst1 = time.time()
+		wts1 = time.time()
+	return
 		
 def winddir_detect(channel):
+	global anem
 	global vane
-	global wdt
-	wdt = time.time()
+	global wtd
+	wtd = time.time()
 	if anem:
 		vane = 1
+	return
 	
 	
 
