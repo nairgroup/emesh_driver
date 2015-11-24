@@ -77,6 +77,7 @@ try:
 			wtd = time.time()
 			err = GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
 			wts2 = time.time()
+			print, err
 			if err == 0:
 				windspd_count = windspd_count+1
 			else:
