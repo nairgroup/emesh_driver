@@ -140,7 +140,7 @@ try:
 		
 		#Write to the data file
 		lun = open(savefile, 'a')
-		lun.write("%r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r \t %r" % 
+		lun.write("%6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f \t %6.2f" % 
 			(year1, day1, h1, m1, s1, sht1x_temp, bmp_temp, bmp_pres, sht1x_rh, wind_dir, wind_spd, rain_rate, year2, day2, h2, m2, s2))
 		lun.write("\n")
 		lun.close()
