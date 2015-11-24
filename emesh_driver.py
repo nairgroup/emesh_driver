@@ -18,7 +18,6 @@ dt = 5 #seconds
 #These are used for wind and rain
 global rain_count
 global windspd_count
-global wind_dir
 global anem #For determining whether first or second anemoter rotation in a cycle
 global vane #For determining whether wind vane has reutrned a signal in the current anenometer cycle
 global wst1 #anemometer first detection time
@@ -28,6 +27,7 @@ global wdt #Wind vane detection time
 #Variable initialization
 rain_count = 0
 windspd_count = 0
+dir_time = float('nan') #Cannot initialize to zero because 0 corresponds to a direction
 a = 0
 v = 0
 wst1 = 0
@@ -98,23 +98,30 @@ try:
 	while (1):
 		
 		#Wind Calculations
-		dir_time = (wtd-wts1)/(wts2-wts1)
+		#dir_time calculation is in the if statements to prevent it from running in calm conditions
 		wrps = windspd_count/dt #Should change dt to a value based on the actual loop runtime
 		if (wrps >= 0.010) and (wrps < 3.229 ):
 			wind_spd = (-0.1095*wrps**2 +2.9318*wrps-0.1412)*0.48037
+			dir_time = (wtd-wts1)/(wts2-wts1)
 		elif (wrps >= 3.230) and (wrps < 54.362):
 			wind_spd = (0.0052*wrps**2+2.1980*wrps+1.1091)*0.48037
+			dir_time = (wtd-wts1)/(wts2-wts1)
 		elif (wrps >= 54.362) and (wrps < 66.332):
 			wind_spd = (0.1104*wrps**2-9.5685*wrps+329.87)*0.48037
+			dir_time = (wtd-wts1)/(wts2-wts1)
 		elif (wrps >= 66.332):
-			wind_spd = 999
-		elif (windspd_count == -999):
+			wind_spd = 999 #Most likely a tornado
+			dir_time = (wtd-wts1)/(wts2-wts1)
+		elif (windspd_count < 0.010):
 			wind_spd = 0
 		else:
 			wind_spd = float('nan')
 			
 		#Resetting variables used in wind calculations
 		windspd_count = 0 #Revolutions of anemometer
+		
+		#Calculating wind direction
+		wind_dir = dir_time #Need the real function
 			
 	
 		#Time of sensor read start
