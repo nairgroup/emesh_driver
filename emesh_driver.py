@@ -30,6 +30,9 @@ rain_count = 0
 windspd_count = 0
 a = 0
 v = 0
+wst1 = 0
+wst2 = 0
+wdt = 0
 
 #Setting pins to be used with each instrument
 sht1x_datapin = 19 #GPIO number
