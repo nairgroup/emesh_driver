@@ -67,16 +67,16 @@ try:
 		
 		timeout = 5 #Time out in seconds, reccomend timeout = 15/3
 		wtime = 15 #time to average wind measurements over in seconds
-		wt1 = time.clock()
+		wt1 = time.time()
 		wt2 = wt1 #Gurantees that loop runs at least once
 		while ((wt2-wt1)<wtime):
-			wt2 = time.clock()
+			wt2 = time.time()
 			GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
-			wts1 = time.clock()
+			wts1 = time.time()
 			GPIO.wait_for_edge(winddir_pin, GPIO.RISING, timeout)
-			wtd = time.clock()
+			wtd = time.time()
 			err = GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
-			wts2 = time.clock
+			wts2 = time.time()
 			if err == 0:
 				windspd_count = windspd_count+1
 			else:
@@ -122,10 +122,6 @@ try:
 		
 		#print "sht1x temp is: ", sht1x_temp
 		#print "sht1x rh is: ", sht1x_rh
-		
-		#Determining Wind Speed and Wind Direction
-		wind_dir = float('NaN')
-		wind_spd = float('NaN')
 		
 		#Determining rain rate
 		rain_rate = (rain_count*0.2/dt)*3600 #rain rate in mm/hr
