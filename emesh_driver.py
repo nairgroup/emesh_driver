@@ -76,7 +76,7 @@ GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detect, bouncetime=10)
 
 GPIO.setup(winddir_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(winddir_pin, GPIO.RISING, callback=winddir_detect, bounce_time=10)
+GPIO.add_event_detect(winddir_pin, GPIO.RISING, callback=winddir_detect, bouncetime=10)
 
 
 #Creating object for sht1x themperature sensor
