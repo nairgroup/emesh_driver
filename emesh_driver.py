@@ -11,18 +11,25 @@ GPIO.setmode(GPIO.BCM)
 savefile = "metobs.txt"
 
 #Defining time for loop delay
-#Winds are a 15s average, so temporal resolution is dt+15s
-dt = 15 #seconds
+#This sets the temporal resolution of the measurements
+dt = 5 #seconds
 
 #Declaring counter variables to be global
 #These are used for wind and rain
 global rain_count
 global windspd_count
 global wind_dir
+global anem #For determining whether first or second anemoter rotation in a cycle
+global vane #For determining whether wind vane has reutrned a signal in the current anenometer cycle
+global wst1 #anemometer first detection time
+global wst2 #anemomter second detection time
+global wdt #Wind vane detection time
 
 #Variable initialization
 rain_count = 0
 windspd_count = 0
+a = 0
+v = 0
 
 #Setting pins to be used with each instrument
 sht1x_datapin = 19 #GPIO number
@@ -36,11 +43,40 @@ def rain_detect(channel):
 	global rain_count
 	rain_count = rain_count + 1
 	return
+
+#Defining interrupt function for anemomter
+def windspd_detect(channel):
+	global windspd_count
+	global anem
+	global vane
+	global wst1
+	global wst2
+	windspd_count +=1
+	if anem and vane:
+		wst2 = time.time()
+		anem = 0
+		vane = 0
+	else:
+		anem = 1
+		wst1 = time.time()
+		
+def winddir_detect(channel):
+	global vane
+	global wdt
+	wdt = time.time()
+	if anem:
+		vane = 1
+	
+	
+
 GPIO.setup(rain_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.add_event_detect(rain_pin, GPIO.FALLING, callback=rain_detect, bouncetime=500)
 
 GPIO.setup(windspd_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(windspd_pin, GPIO.FALLING, callback=windspd_detect, bouncetime=10)
+
 GPIO.setup(winddir_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(winddir_pin, GPIO.RISING, callback=winddir_detect, bounce_time=10)
 
 
 #Creating object for sht1x themperature sensor
@@ -58,36 +94,9 @@ try:
 
 	while (1):
 		
-		#Wind loop
-		#This loop should take 15s of the 30s total delay between obs
-		#Resetting variables used in wind loop
-		windspd_count = 0 #Revolutions of anemometer
-		dir_time = 0 #Relative timing for wind direction
-		i = 0 #loop counter
-		
-		timeout = 5 #Time out in seconds, reccomend timeout = 15/3
-		wtime = 15 #time to average wind measurements over in seconds
-		wt1 = time.time()
-		wt2 = wt1 #Gurantees that loop runs at least once
-		while ((wt2-wt1)<wtime):
-			wt2 = time.time()
-			GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
-			wts1 = time.time()
-			GPIO.wait_for_edge(winddir_pin, GPIO.RISING, timeout)
-			wtd = time.time()
-			err = GPIO.wait_for_edge(windspd_pin, GPIO.FALLING, timeout)
-			wts2 = time.time()
-			print err
-			if not(err == -1):
-				windspd_count = windspd_count+1
-			else:
-				windspd_count = -999
-			dir_time = (wtd-wts1)/(wts2-wts1)+dir_time
-			i += 1
-			
-			
-		wind_dir = (dir_time/i) #Needs completion
-		wrps = windspd_count/wtime
+		#Wind Calculations
+		dir_time = (wtd-wts1)/(wts2-wts1)
+		wrps = windspd_count/dt #Should change dt to a value based on the actual loop runtime
 		if (wrps >= 0.010) and (wrps < 3.229 ):
 			wind_spd = (-0.1095*wrps**2 +2.9318*wrps-0.1412)*0.48037
 		elif (wrps >= 3.230) and (wrps < 54.362):
@@ -100,6 +109,9 @@ try:
 			wind_spd = 0
 		else:
 			wind_spd = float('nan')
+			
+		#Resetting variables used in wind calculations
+		windspd_count = 0 #Revolutions of anemometer
 			
 	
 		#Time of sensor read start
