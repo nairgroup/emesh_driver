@@ -47,8 +47,6 @@ def pull_obs(obsv):
 		
 	return data
 
-print(data)
-	
 #Telling R. Pi to wait for Arduino's signal before pulling obs
 try:
 	GPIO.wait_for_edge(7, GPIO.RISING)
