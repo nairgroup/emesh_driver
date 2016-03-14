@@ -26,6 +26,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 #Defining I2C parameters
+bus = smbus.SMBus(1)
 arduino_address = 0x04
 
 #I2C functions
