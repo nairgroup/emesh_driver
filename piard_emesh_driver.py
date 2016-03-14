@@ -35,7 +35,7 @@ def write_signal(obsv):
 	return -1
 	
 def read_signal():
-	value = bus.read_byte(address)
+	value = bus.read_byte(arduino_address)
 	return value
 
 #Getting observations
