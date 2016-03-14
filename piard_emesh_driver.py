@@ -52,7 +52,7 @@ def pull_obs(obsv):
 try:
 	GPIO.wait_for_edge(7, GPIO.RISING)
 	bmptmp_bytes = pull_obs(1)
-	print(bmptmp_bytes.T)
+	print(bmptmp_bytes)
 	
 	#Write observations to files
 	
