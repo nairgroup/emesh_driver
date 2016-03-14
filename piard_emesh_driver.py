@@ -29,16 +29,16 @@ GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 arduino_address = 0x04
 
 #I2C functions
-def write_signal(obsv)
+def write_signal(obsv):
 	bus.write_byte(arduino_address, obsv)
 	return -1
 	
-def read_signal()
+def read_signal():
 	value = bus.read_byte(address)
 	return value
 
 #Getting observations
-def pull_obs(obsv)
+def pull_obs(obsv):
 	write_signal(obsv)
 	nels = read_signal()
 	data = numpy.zeros(nels)
