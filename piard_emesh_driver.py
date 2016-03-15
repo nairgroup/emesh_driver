@@ -42,19 +42,28 @@ def read_signal():
 def pull_obs(obsv):
 	write_signal(obsv)
 	nels = read_signal()
-	data = numpy.zeros(nels)
-	for i in range(nels):
-		data[i] = read_signal()
-		print(data[i])
+	data_bytes = numpy.zeros(nels)
 	
-	print(data)	
+	#Setting number of bytes in a single value
+	if obsv = 1:
+		nbytes = 2
+	
+	#Reading data bytes from arduino
+	for i in range(nels):
+		data_bytes[i] = read_signal()
+	
+	#Recombining bytes into values
+	data = numpy.zeros(nels/nbytes)
+	for i in length(data):
+		data[i] = (float(int.from_bytes(data_bytes[i*2], byteorder='big'))
+			+float(int.from_bytes(data_bytes[i*2+1], byteorder='big'))/100.0)
 	return data
 
 #Telling R. Pi to wait for Arduino's signal before pulling obs
 try:
 	GPIO.wait_for_edge(7, GPIO.RISING)
 	bmptmp_bytes = pull_obs(1)
-	print(bmptmp_bytes)
+	
 	
 	#Write observations to files
 	
