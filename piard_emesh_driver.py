@@ -54,7 +54,7 @@ def pull_obs(obsv):
 	
 	#Recombining bytes into values
 	data = numpy.zeros(nels/nbytes)
-	for i in len(data):
+	for i in range(len(data)):
 		data[i] = (float(int.from_bytes(data_bytes[i*2], byteorder='big'))
 			+float(int.from_bytes(data_bytes[i*2+1], byteorder='big'))/100.0)
 	return data
