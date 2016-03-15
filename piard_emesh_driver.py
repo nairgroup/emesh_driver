@@ -45,7 +45,9 @@ def pull_obs(obsv):
 	data = numpy.zeros(nels)
 	for i in range(nels):
 		data[i] = read_signal()
-		
+		print(data[i])
+	
+	print(data)	
 	return data
 
 #Telling R. Pi to wait for Arduino's signal before pulling obs
