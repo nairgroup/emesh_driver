@@ -53,9 +53,10 @@ def pull_obs(obsv):
 		data_bytes[i] = read_signal()
 	
 	#Recombining bytes into values
-	data = nels/nbytes
+	data = numpy.zeros(nels/nbytes)
 	for i in range(nels/nbytes):
 		data[i] = float(data_bytes[i*2]) + float(data_bytes[i*2+1])/100.0
+	print(nels)
 	print(data_bytes)
 	print(data)
 	return data
