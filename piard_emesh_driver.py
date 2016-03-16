@@ -57,6 +57,7 @@ def pull_obs(obsv):
 	for i in range(len(data)):
 		data[i] = (float(int.from_bytes(data_bytes[i*2], byteorder='big'))
 			+float(int.from_bytes(data_bytes[i*2+1], byteorder='big'))/100.0)
+	print(data)
 	return data
 
 #Telling R. Pi to wait for Arduino's signal before pulling obs
