@@ -51,6 +51,7 @@ def pull_obs(obsv):
 	#Reading data bytes from arduino
 	for i in range(nels):
 		data_bytes[i] = read_signal()
+		print(data_bytes[i])
 	
 	#Recombining bytes into values
 	data = numpy.zeros(nels/nbytes)
