@@ -14,6 +14,7 @@
 # 8 - Returns the Time from the Arduino's Clock Chip
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#A byte value of 222 from the Arduino means requested instrument not in above list
 
 #Importing necessary modules
 import numpy
