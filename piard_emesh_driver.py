@@ -46,8 +46,10 @@ def pull_obs(obsv):
 	data_bytes = numpy.zeros(nels)
 	
 	#Setting number of bytes in a single value
-	if obsv == 1:
+	if obsv in [1, 2, 3, 5, 6, 7]:
 		nbytes = 2
+	elif obsv == 4:
+		nbytes = 3
 	
 	#Reading data bytes from arduino
 	for i in range(nels):
