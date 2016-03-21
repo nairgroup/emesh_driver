@@ -68,7 +68,7 @@ try:
 	GPIO.wait_for_edge(7, GPIO.RISING)
 	timestart = time.time()
 	bmptmp_bytes = pull_obs(1)
-	print(timestart-timie.time())
+	print(timestart-time.time())
 	
 	
 	#Write observations to files
