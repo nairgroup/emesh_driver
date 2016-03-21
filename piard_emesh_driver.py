@@ -67,7 +67,13 @@ def pull_obs(obsv):
 try:
 	GPIO.wait_for_edge(7, GPIO.RISING)
 	timestart = time.time()
-	bmptmp_bytes = pull_obs(1)
+	bmptmp = pull_obs(1)
+	shttmp = pull_obs(2)
+	rh = pull_obs(3)
+	pres = pull_obs(4)
+	winddir = pull_obs(5)
+	windspd = pull_obs(6)
+	precip = pull_obs(7)
 	print(timestart-time.time())
 	
 	
