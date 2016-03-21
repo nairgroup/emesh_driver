@@ -66,8 +66,9 @@ def pull_obs(obsv):
 #Telling R. Pi to wait for Arduino's signal before pulling obs
 try:
 	GPIO.wait_for_edge(7, GPIO.RISING)
+	timestart = time.time()
 	bmptmp_bytes = pull_obs(1)
-	print(bmptmp_bytes)
+	print(timenow-timie.time())
 	
 	
 	#Write observations to files
